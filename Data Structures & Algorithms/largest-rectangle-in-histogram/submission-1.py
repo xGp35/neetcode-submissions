@@ -1,0 +1,14 @@
+class Solution:
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        stack = []
+        max_area = 0
+
+        for i , h in enumerate(heights+[0]):
+            while stack and heights[stack[-1]] > h:
+                index = stack.pop()
+                height = heights[index]
+                left_index = stack[-1] if stack else -1
+                width = i - left_index -1
+                max_area = max(max_area, height*width)
+            stack.append(i)
+        return max_area
